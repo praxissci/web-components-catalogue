@@ -29,6 +29,7 @@ import '@polymer/app-route/app-route.js';
 import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
+import '@rhi-ui/logo/rhi-ui-logo.js';
 import './catalogue-icons.js';
 
 // Gesture events like tap and track generated from touch will not be
@@ -79,6 +80,16 @@ class CatalogueApp extends PolymerElement {
           color: black;
           font-weight: bold;
         }
+
+        app-toolbar .identity {
+            padding: 8px 16px 0 16px;
+            text-align: center;
+            width: 100%;
+        }
+
+        app-toolbar .identity rhi-ui-logo {
+            width: 100%;
+        }
       </style>
 
       <app-location route="{{route}}" url-space-regex="^[[rootPath]]">
@@ -90,8 +101,13 @@ class CatalogueApp extends PolymerElement {
       <app-drawer-layout fullbleed="" narrow="{{narrow}}">
         <!-- Drawer content -->
         <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
-          <app-toolbar>Menu</app-toolbar>
+          <app-toolbar>
+                <div class="identity">
+                    <rhi-ui-logo></rhi-ui-logo>
+                </div>
+          </app-toolbar>
           <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+            <a name="rhiUiLogo" href="[[rootPath]]rhiUiLogo">Logo</a>
             <a name="rhiUiSelectableGrid" href="[[rootPath]]rhiUiSelectableGrid">Selectable Grid</a>
           </iron-selector>
         </app-drawer>
@@ -107,6 +123,7 @@ class CatalogueApp extends PolymerElement {
           </app-header>
 
           <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
+            <rhi-ui-logo-demo-view name="rhiUiLogo"></rhi-ui-logo-demo-view>
             <rhi-ui-selectable-grid-demo-view name="rhiUiSelectableGrid"></rhi-ui-selectable-grid-demo-view>
             <catalogue-view404 name="view404"></catalogue-view404>
           </iron-pages>
@@ -139,8 +156,8 @@ class CatalogueApp extends PolymerElement {
         // If no page was found in the route data, page will be an empty string.
         // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
         if (!page) {
-            this.page = 'view1';
-        } else if (['view1', 'view2', 'view3', 'rhiUiSelectableGrid'].indexOf(page) !== -1) {
+            this.page = 'rhiUiLogo';
+        } else if (['rhiUiLogo', 'rhiUiSelectableGrid'].indexOf(page) !== -1) {
             this.page = page;
         } else {
             this.page = 'view404';
@@ -158,6 +175,9 @@ class CatalogueApp extends PolymerElement {
         // Note: `polymer build` doesn't like string concatenation in the import
         // statement, so break it up.
         switch (page) {
+            case 'rhiUiLogo':
+                import('./rhi-ui-logo-demo-view.js');
+                break;
             case 'rhiUiSelectableGrid':
                 import('./rhi-ui-selectable-grid-demo-view.js');
                 break;

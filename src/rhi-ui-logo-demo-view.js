@@ -17,11 +17,11 @@
 'use strict';
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { RhiUiSelectableGridDemo } from '@rhi-ui/selectable-grid/rhi-ui-selectable-grid-demo.js';
+import { RhiUiLogoDemo } from '@rhi-ui/logo/rhi-ui-logo-demo.js';
 import './shared-styles.js';
 
-class RhiUiSelectableGridDemoView extends PolymerElement {
-    static get is() { return 'rhi-ui-selectable-grid-demo-view'; }
+class RhiUiLogoDemoView extends PolymerElement {
+    static get is() { return 'rhi-ui-logo-demo-view'; }
 
     static get template() {
         return html`
@@ -32,9 +32,9 @@ class RhiUiSelectableGridDemoView extends PolymerElement {
                     padding: 16px;
                 }
             </style>
-            <rhi-ui-selectable-grid-demo></rhi-ui-selectable-grid-demo>
+            <rhi-ui-logo-demo></rhi-ui-logo-demo>
     `;
     }
 }
 
-window.customElements.define(RhiUiSelectableGridDemoView.is, RhiUiSelectableGridDemoView);
+window.customElements.define(RhiUiLogoDemoView.is, RhiUiLogoDemoView);

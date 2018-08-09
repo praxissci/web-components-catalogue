@@ -1,10 +1,10 @@
 {
-  "name": "polymer-starter-kit",
+  "name": "rhi-web-components-catalogue",
   "version": "4.0.0",
-  "description": "A starting point for Polymer apps",
-  "author": "The Polymer Authors",
-  "license": "BSD-3-Clause",
-  "repository": "Polymer/polymer-starter-kit",
+  "description": "Catalogue to showcase RHI's web components",
+  "author": "RHI Tech",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/rick-hansen-institute/web-components-catalogue.git",
   "scripts": {
     "start": "polymer serve",
     "build": "polymer build",
@@ -23,7 +23,8 @@
     "@polymer/lit-element": "^0.5.2",
     "@polymer/paper-icon-button": "^3.0.0-pre.15",
     "@polymer/polymer": "^3.0.0",
-    "@rhi-ui/selectable-grid": "^1.0.1",
+    "@rhi-ui/logo": "^1.0.1",
+    "@rhi-ui/selectable-grid": "^1.0.2",
     "@webcomponents/webcomponentsjs": "^2.0.0"
   },
   "devDependencies": {
