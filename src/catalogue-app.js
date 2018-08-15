@@ -82,13 +82,14 @@ class CatalogueApp extends PolymerElement {
         }
 
         app-toolbar .identity {
-            padding: 8px 16px 0 16px;
+            padding-top: 4px;
             text-align: center;
             width: 100%;
         }
 
         app-toolbar .identity rhi-ui-logo {
-            width: 100%;
+            height: 42px;
+            width: 192px;
         }
       </style>
 
@@ -107,8 +108,9 @@ class CatalogueApp extends PolymerElement {
                 </div>
           </app-toolbar>
           <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-            <a name="rhiUiLogo" href="[[rootPath]]rhiUiLogo">Logo</a>
-            <a name="rhiUiSelectableGrid" href="[[rootPath]]rhiUiSelectableGrid">Selectable Grid</a>
+            <a name="rhiUiLogo" href="[[rootPath]]rhiUiLogo">rhi-ui-ogo</a>
+            <a name="rhiUiSelectableGrid" href="[[rootPath]]rhiUiSelectableGrid">rhi-ui-selectable-grid</a>
+            <a name="rhiIsncsciUiMobileTotals" href="[[rootPath]]rhiIsncsciUiMobileTotals">rhi-isncsci-ui-mobile-totals</a>
           </iron-selector>
         </app-drawer>
 
@@ -125,6 +127,7 @@ class CatalogueApp extends PolymerElement {
           <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
             <rhi-ui-logo-demo-view name="rhiUiLogo"></rhi-ui-logo-demo-view>
             <rhi-ui-selectable-grid-demo-view name="rhiUiSelectableGrid"></rhi-ui-selectable-grid-demo-view>
+            <rhi-isncsci-ui-mobile-totals-demo-view name="rhiIsncsciUiMobileTotals"></rhi-isncsci-ui-mobile-totals-demo-view>
             <catalogue-view404 name="view404"></catalogue-view404>
           </iron-pages>
         </app-header-layout>
@@ -157,7 +160,7 @@ class CatalogueApp extends PolymerElement {
         // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
         if (!page) {
             this.page = 'rhiUiLogo';
-        } else if (['rhiUiLogo', 'rhiUiSelectableGrid'].indexOf(page) !== -1) {
+        } else if (['rhiUiLogo', 'rhiUiSelectableGrid', 'rhiIsncsciUiMobileTotals'].indexOf(page) !== -1) {
             this.page = page;
         } else {
             this.page = 'view404';
@@ -180,6 +183,9 @@ class CatalogueApp extends PolymerElement {
                 break;
             case 'rhiUiSelectableGrid':
                 import('./rhi-ui-selectable-grid-demo-view.js');
+                break;
+            case 'rhiIsncsciUiMobileTotals':
+                import('./rhi-isncsci-ui-mobile-totals-demo-view.js');
                 break;
             case 'view404':
                 import('./catalogue-view404.js');

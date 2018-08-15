@@ -17,11 +17,11 @@
 'use strict';
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { RhiUiLogoDemo } from '@rhi-ui/logo/rhi-ui-logo-demo.js';
+import { RhiIsncsciUiMobileTotalsDemo } from '@rhi-isncsci-ui/mobile-totals/rhi-isncsci-ui-mobile-totals-demo.js';
 import './shared-styles.js';
 
-class RhiUiLogoDemoView extends PolymerElement {
-    static get is() { return 'rhi-ui-logo-demo-view'; }
+class RhiIsncsciUiMobileTotalsDemoView extends PolymerElement {
+    static get is() { return 'rhi-isncsci-ui-mobile-totals-demo-view'; }
 
     static get template() {
         return html`
@@ -32,9 +32,9 @@ class RhiUiLogoDemoView extends PolymerElement {
                     padding: 16px;
                 }
             </style>
-            <rhi-ui-logo-demo readmeFile="../node_modules/@rhi-ui/logo/README.md"></rhi-ui-logo-demo>
+            <rhi-isncsci-ui-mobile-totals-demo readmeFile="../node_modules/@rhi-isncsci-ui/mobile-totals/README.md"></rhi-isncsci-ui-mobile-totals-demo>
     `;
     }
 }
 
-window.customElements.define(RhiUiLogoDemoView.is, RhiUiLogoDemoView);
+window.customElements.define(RhiIsncsciUiMobileTotalsDemoView.is, RhiIsncsciUiMobileTotalsDemoView);

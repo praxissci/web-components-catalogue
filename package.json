@@ -15,16 +15,19 @@
   "dependencies": {
     "@polymer/app-layout": "^3.0.0-pre.15",
     "@polymer/app-route": "^3.0.0-pre.15",
+    "@polymer/iron-demo-helpers": "^3.0.0-pre.21",
     "@polymer/iron-flex-layout": "^3.0.0-pre.15",
     "@polymer/iron-iconset-svg": "^3.0.0-pre.15",
     "@polymer/iron-media-query": "^3.0.0-pre.15",
     "@polymer/iron-pages": "^3.0.0-pre.15",
     "@polymer/iron-selector": "^3.0.0-pre.15",
     "@polymer/lit-element": "^0.5.2",
+    "@polymer/marked-element": "^3.0.0-pre.21",
     "@polymer/paper-icon-button": "^3.0.0-pre.15",
     "@polymer/polymer": "^3.0.0",
-    "@rhi-ui/logo": "^1.0.1",
-    "@rhi-ui/selectable-grid": "^1.0.2",
+    "@rhi-isncsci-ui/mobile-totals": "^1.0.4",
+    "@rhi-ui/logo": "^1.0.4",
+    "@rhi-ui/selectable-grid": "^1.0.3",
     "@webcomponents/webcomponentsjs": "^2.0.0"
   },
   "devDependencies": {
