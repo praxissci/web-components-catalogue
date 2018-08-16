@@ -32,7 +32,7 @@ class RhiIsncsciUiMobileTotalsDemoView extends PolymerElement {
                     padding: 16px;
                 }
             </style>
-            <rhi-isncsci-ui-mobile-totals-demo readmeFile="../node_modules/@rhi-isncsci-ui/mobile-totals/README.md"></rhi-isncsci-ui-mobile-totals-demo>
+            <rhi-isncsci-ui-mobile-totals-demo readmeFile$="[[window.CatalogueAppGlobals.rootPath]]node_modules/@rhi-isncsci-ui/mobile-totals/README.md"></rhi-isncsci-ui-mobile-totals-demo>
     `;
     }
 }
