@@ -1,8 +1,11 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/my-app.js",
+  "shell": "src/catalogue-app.js",
   "sources": [
-    "images/**/*"
+    "images/**/*",
+    "node_modules/@rhi-isncsci-ui/mobile-totals/README.md",
+    "node_modules/@rhi-ui/logo/README.md",
+    "node_modules/@rhi-ui/selectable-grid/README.md"
   ],
   "extraDependencies": [
     "manifest.json",

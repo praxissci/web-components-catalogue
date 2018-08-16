@@ -32,7 +32,7 @@ class RhiUiSelectableGridDemoView extends PolymerElement {
                     padding: 16px;
                 }
             </style>
-            <rhi-ui-selectable-grid-demo readmeFile="../node_modules/@rhi-ui/selectable-grid/README.md"></rhi-ui-selectable-grid-demo>
+            <rhi-ui-selectable-grid-demo readmeFile$="[[window.CatalogueAppGlobals.rootPath]]node_modules/@rhi-ui/selectable-grid/README.md"></rhi-ui-selectable-grid-demo>
     `;
     }
 }

@@ -29,6 +29,8 @@ import '@polymer/app-route/app-route.js';
 import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
+import '@polymer/iron-demo-helpers/demo-snippet.js';
+import '@polymer/marked-element/marked-element.js'
 import '@rhi-ui/logo/rhi-ui-logo.js';
 import './catalogue-icons.js';
 

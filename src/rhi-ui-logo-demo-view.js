@@ -32,7 +32,7 @@ class RhiUiLogoDemoView extends PolymerElement {
                     padding: 16px;
                 }
             </style>
-            <rhi-ui-logo-demo readmeFile="../node_modules/@rhi-ui/logo/README.md"></rhi-ui-logo-demo>
+            <rhi-ui-logo-demo readmeFile$="[[window.CatalogueAppGlobals.rootPath]]node_modules/@rhi-ui/logo/README.md"></rhi-ui-logo-demo>
     `;
     }
 }
