@@ -19,11 +19,13 @@
 import '../node_modules/@rhi-ui/logo/rhi-ui-logo.js';
 import './catalogue-icons.js';
 
+import { html } from './html.js';
+
 class CatalogueApp extends HTMLElement {
     static get is() { return 'catalogue-app'; }
 
     static getTemplate(props) {
-        return `
+        return html`
             <style>
                 :host {
                     --app-primary-color: #0072CE;
@@ -31,6 +33,7 @@ class CatalogueApp extends HTMLElement {
                     --app-left-drawer-width: 128px;
                     --app-left-drawer-translate: -128px;
                     --app-top-bar-height: 56px;
+                    --app-content-top: 72px;
 
                     display: block;
                 }
@@ -51,7 +54,7 @@ class CatalogueApp extends HTMLElement {
                 }
 
                 .app-layout .drawer {
-                    background-color: rgba(255, 0, 0, .3);
+                    background-color: #FFF;
                     bottom: 0;
                     left: 0;
                     position: fixed;
@@ -84,13 +87,19 @@ class CatalogueApp extends HTMLElement {
                 .app-layout .drawer.left.visible {
                     transform: translate(0);
                 }
+
+                .app-layout #app-content {
+                    height: 1800px;
+                    padding: var(--app-content-top) 16px 16px 16px;
+                    position: relative;
+                }
                 
-                .app-layout .drawer .content .navigation {
+                .app-layout .drawer #app-content .navigation {
                     background-color: blue;
                     height: 1800px;
                 }
 
-                .app-layout .content {
+                .app-layout #app-content {
                     height: 1800px;
                     position: relative;
                 }
@@ -127,9 +136,13 @@ class CatalogueApp extends HTMLElement {
                 }
 
                 @media (min-width: 560px) {
-                    .app-layout .content,
                     .app-layout .app-bar.top {
                         left: var(--app-left-drawer-width);
+                    }
+
+                    .app-layout #app-content {
+                        margin-left: var(--app-left-drawer-width);
+
                     }
 
                     .app-layout .app-bar.top .icons.left #menu-button {
@@ -145,7 +158,7 @@ class CatalogueApp extends HTMLElement {
             <div class="app-layout left-drawer">
                 <div class="app-bar top">
                     <div class="icons left">
-                        <div id="menu-button">m</div>
+                        <div id="menu-button"></div>
                     </div>
                     <div class="title">Custom Elements Catalogue</div>
                 </div>
@@ -156,16 +169,20 @@ class CatalogueApp extends HTMLElement {
                             <div>&commat;rhi-ui/</div>
                             <div>
                                 <div>demo-snippet</div>
-                                <div>logo</div>
-                                <div>markdown-viewer</div>
-                                <div>selectable-grid</div>
+                                <div>
+                                    <a class="nav-link" href="#rhi-ui-logo">logo</a>
+                                </div>
+                                <div>
+                                    <a class="nav-link" href="#rhi-ui-markdown-viewer">markdown-viewer</a>
+                                </div>
+                                <div>
+                                    <a class="nav-link" href="#rhi-ui-selectable-grid">selectable-grid</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="content">
-                    <div><br/><br/><br/><br/><br/><br/>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20</div>
-                </div>
+                <div id="app-content"></div>
             </div>
         `;
     }
@@ -179,15 +196,28 @@ class CatalogueApp extends HTMLElement {
     }
 
     connectedCallback() {
-        const leftDrawer = this.shadowRoot.getElementById('left-drawer');
+        this.leftDrawer = this.shadowRoot.getElementById('left-drawer');
         
-        const dialogBackground = this.shadowRoot.getElementById('dialog-background');
-        dialogBackground.addEventListener('click', e => { leftDrawer.classList.remove('visible'); dialogBackground.classList.remove('visible'); });
+        this.dialogBackground = this.shadowRoot.getElementById('dialog-background');
+        this.dialogBackground.addEventListener('click', e => this.hideLeftDrawer());
 
         const menuButton = this.shadowRoot.getElementById('menu-button');
         menuButton.innerHTML = `<svg viewBox="0 0 24 24">${this.getIcon('menu').innerHTML}</svg>`;
-        menuButton.addEventListener('click', e => { leftDrawer.classList.add('visible'); dialogBackground.classList.add('visible'); });
+        menuButton.addEventListener('click', e => { this.leftDrawer.classList.add('visible'); this.dialogBackground.classList.add('visible'); });
+
+        this.content = this.shadowRoot.getElementById('app-content');
+
+        window.addEventListener('hashchange', e => this.hashChanged(e));
+        this.loadPage(window.location.hash.replace('#', ''));
     }
+
+    // initializeNavigation() {
+    //     const navLinks = this.shadowRoot.querySelectorAll('.nav-link');
+
+    //     for (let i=0; i<navLinks.length; i++) {
+    //         navLinks[i].addEventListener('click', e => this.navLinkClicked(e));
+    //     }
+    // }
 
     getIcon(id) {
         const icons = document.head.getElementsByTagName('iconset-svg')[0].getElementsByTagName('g');
@@ -203,6 +233,40 @@ class CatalogueApp extends HTMLElement {
         const template = document.createElement('template');
         template.innerHTML = CatalogueApp.getTemplate({});
         this.shadowRoot.appendChild(template.content.cloneNode(true));
+    }
+
+    loadPage(page) {
+        const componentName = page ? page : 'rhi-ui-logo';
+
+        switch (componentName) {
+            case 'rhi-ui-logo':
+                import('../node_modules/@rhi-ui/logo/rhi-ui-logo-demo.js');
+                this.content.innerHTML = '<rhi-ui-logo-demo file-uri="../node_modules/@rhi-ui/logo/README.md"></rhi-ui-logo-demo>';
+                break;
+            case 'rhi-ui-selectable-grid':
+                import('../node_modules/@rhi-ui/selectable-grid/rhi-ui-selectable-grid-demo.js');
+                this.content.innerHTML = '<rhi-ui-selectable-grid-demo file-uri="../node_modules/@rhi-ui/selectable-grid/README.md"></rhi-ui-selectable-grid-demo>';
+                break;
+            case 'rhi-isncsci-ui-mobile-totals':
+                import('./rhi-isncsci-ui-mobile-totals-demo-view.js');
+                break;
+            default:
+                import('./catalogue-view404.js');
+                this.content.innerHTML = '<catalogue-view404></catalogue-view404>';
+                break;
+        }
+
+        window.scrollTo(0, 0);
+    }
+
+    hideLeftDrawer() {
+        this.leftDrawer.classList.remove('visible');
+        this.dialogBackground.classList.remove('visible');
+    }
+
+    hashChanged(e) {
+        this.hideLeftDrawer();
+        this.loadPage(window.location.hash.replace('#', ''));
     }
 }
 

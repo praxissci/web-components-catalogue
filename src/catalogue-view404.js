@@ -16,24 +16,38 @@
 */
 'use strict';
 
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { html } from './html.js';
 
-class CataologueView404 extends PolymerElement {
+class CatalogueView404 extends HTMLElement {
     static get is() { return 'catalogue-view404'; }
 
-    static get template() {
+    static getTemplate() {
         return html`
-      <style>
-        :host {
-          display: block;
+            <style>
+                :host {
+                display: block;
 
-          padding: 10px 20px;
-        }
-      </style>
+                padding: 10px 20px;
+                }
+            </style>
 
-      Oops you hit a 404. <a href="[[rootPath]]">Head back to home.</a>
-    `;
+            Oops you hit a 404. <a href="/">Head back to home.</a>
+        `;
+    }
+    
+    constructor() {
+        super();
+
+        this.attachShadow({mode: 'open'});
+
+        this.requestRender();
+    }
+
+    requestRender() {
+        const template = document.createElement('template');
+        template.innerHTML = CatalogueView404.getTemplate({});
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
     }
 }
 
-window.customElements.define(CataologueView404.is, CatalogueView404);
+window.customElements.define(CatalogueView404.is, CatalogueView404);
