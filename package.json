@@ -26,9 +26,12 @@
     "@polymer/paper-icon-button": "^3.0.0-pre.15",
     "@polymer/polymer": "^3.0.0",
     "@rhi-isncsci-ui/mobile-totals": "^1.0.4",
-    "@rhi-ui/logo": "^1.0.4",
-    "@rhi-ui/selectable-grid": "^1.0.3",
-    "@webcomponents/webcomponentsjs": "^2.0.0"
+    "@rhi-ui/demo-snippet": "^1.0.3",
+    "@rhi-ui/logo": "^1.0.6",
+    "@rhi-ui/markdown-viewer": "^1.0.2",
+    "@rhi-ui/selectable-grid": "^1.0.4",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "markdown-it": "^8.4.2"
   },
   "devDependencies": {
     "polymer-cli": "^1.7.1",
