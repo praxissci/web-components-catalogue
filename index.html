@@ -10,25 +10,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
-    <meta name="generator" content="Polymer Starter Kit">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>Catalogue App</title>
-    <meta name="description" content="Catalogue App description">
-
-    <!--
-      The `<base>` tag below is present to support two advanced deployment options:
-      1) Differential serving. 2) Serving from a non-root path.
-
-      Instead of manually editing the `<base>` tag yourself, you should generally either:
-      a) Add a `basePath` property to the build configuration in your `polymer.json`.
-      b) Use the `--base-path` command-line option for `polymer build`.
-
-      Note: If you intend to serve from a non-root path, see [polymer-root-path] below.
-    -->
-    <base href="/">
+    <title>Custom Element Catalogue :: Tech :: Rick Hansen Institute</title>
+    <meta name="description" content="Rick Hansen Institute's custom elements catalogue by the Technology group.">
 
     <link rel="icon" href="images/favicon.ico">
 
@@ -36,16 +24,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="manifest" href="manifest.json">
 
     <!-- See https://goo.gl/qRE0vM -->
-    <meta name="theme-color" content="#3f51b5">
+    <meta name="theme-color" content="#0072CE">
 
     <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Catalogue App">
+    <meta name="application-name" content="RHI CE Catalogue">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Catalogue App">
+    <meta name="apple-mobile-web-app-title" content="RHI CE Catalogue">
 
     <!-- Homescreen icons -->
     <link rel="apple-touch-icon" href="images/manifest/icon-48x48.png">
@@ -59,31 +47,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="msapplication-TileColor" content="#3f51b5">
     <meta name="msapplication-tap-highlight" content="no">
 
-    <script src="node_modules/markdown-it/dist/markdown-it.min.js"></script>
     <script>
-      /**
-      * [polymer-root-path]
-      *
-      * Leave this line unchanged if you intend to serve your app from the root
-      * path (e.g., with URLs like `my.domain/` and `my.domain/view1`).
-      *
-      * If you intend to serve your app from a non-root path (e.g., with URLs
-      * like `my.domain/my-app/` and `my.domain/catalogue-app/view1`), edit this line
-      * to indicate the path from which you'll be serving, including leading
-      * and trailing slashes (e.g., `/catalogue-app/`).
-      */
-      window.CatalogueAppGlobals = { rootPath: '/' };
+        window.CatalogueAppGlobals = { rootPath: '/' };
 
-      // Load and register pre-caching Service Worker
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('service-worker.js', {
-            scope: CatalogueAppGlobals.rootPath
-          });
-        });
-      }
+        // Load and register pre-caching Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('service-worker.js', {
+                    scope: CatalogueAppGlobals.rootPath
+                });
+            });
+        }
     </script>
 
+    <script src="node_modules/markdown-it/dist/markdown-it.min.js"></script>
     <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
     <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
@@ -92,20 +69,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- Add any global styles for body, document, etc. -->
     <style>
-      body {
-        margin: 0;
-        font-family: "Roboto", "Noto", sans-serif;
-        line-height: 1.5;
-        min-height: 100vh;
-        background-color: #eeeeee;
-      }
+        body {
+            margin: 0;
+            font-family: "Roboto", "Noto", sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            background-color: #eeeeee;
+        }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <catalogue-app></catalogue-app>
     <noscript>
-      Please enable JavaScript to view this website.
+        Please enable JavaScript to view this website.
     </noscript>
     <!-- Built with love using Polymer Starter Kit -->
-  </body>
+</body>
+
 </html>
