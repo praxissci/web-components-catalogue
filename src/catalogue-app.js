@@ -18,7 +18,7 @@
 
 import '../node_modules/@rhi-ui/logo/rhi-ui-logo.js';
 import './catalogue-icons.js';
-
+import './catalogue-view404.js';
 import { html } from './html.js';
 
 class CatalogueApp extends HTMLElement {
@@ -30,8 +30,8 @@ class CatalogueApp extends HTMLElement {
                 :host {
                     --app-primary-color: #0072CE;
                     --app-secondary-color: #FFF;
-                    --app-left-drawer-width: 128px;
-                    --app-left-drawer-translate: -128px;
+                    --app-left-drawer-width: 256px;
+                    --app-left-drawer-translate: -256px;
                     --app-top-bar-height: 56px;
                     --app-content-top: 72px;
 
@@ -59,56 +59,85 @@ class CatalogueApp extends HTMLElement {
                     left: 0;
                     position: fixed;
                     top: 0;
-                    width: var(--app-left-drawer-width);
+                    width: var(--app-left-drawer-width, 256px);
                     z-index: 15;
                 }
 
                 .app-layout .drawer .bar.top {
                     background-color: #FFF;
-                    height: var(--app-top-bar-height);
+                    height: var(--app-top-bar-height, 56px);
                     left: 0;
                     position: absolute;
                     right: 0;
                     top: 0;
                 }
-                
+
+                .app-layout .drawer .bar.top rhi-ui-logo {
+                    /*0 0 573 168*/
+                    display: inline-block;
+                    height: 56px;
+                    margin-left: 24px;
+                    width: 191px;
+                }
+
                 .app-layout .drawer .content {
-                    margin-top: var(--app-top-bar-height);
+                    margin-top: var(--app-top-bar-height, 56px);
                     height:100%;
-                    overflow: scroll;
+                    overflow-y: auto;
                     position: static;
                 }
 
                 .app-layout .drawer.left {
-                    transform: translate(var(--app-left-drawer-translate));
+                    transform: translate(var(--app-left-drawer-translate, -256px));
                     transition: transform 400ms;
                 }
 
                 .app-layout .drawer.left.visible {
                     transform: translate(0);
                 }
-
-                .app-layout #app-content {
-                    height: 1800px;
-                    padding: var(--app-content-top) 16px 16px 16px;
-                    position: relative;
+                
+                .app-layout .drawer .navigation {
+                    font-size: 14px;
                 }
                 
-                .app-layout .drawer #app-content .navigation {
-                    background-color: blue;
-                    height: 1800px;
+                .app-layout .drawer .navigation .section-name,
+                .app-layout .drawer .navigation a {
+                    line-height: 48px;
+                    padding: 0 16px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .app-layout .drawer .navigation a {
+                    color: #666;
+                    display: block;
+                    transition: background-color 500ms;
+                }
+
+                .app-layout .drawer .navigation a:hover {
+                    background-color: #EEE;
+                }
+
+                .app-layout .drawer .navigation a.current {
+                    background-color: #EEE;
+                    color: #333;
+                }
+                
+                .app-layout #app-content {
+                    padding: var(--app-content-top, 72px) 16px 16px 16px;
+                    position: relative;
                 }
 
                 .app-layout #app-content {
-                    height: 1800px;
                     position: relative;
                 }
 
                 .app-layout .app-bar.top {
-                    background-color: var(--app-primary-color);
-                    color: var(--app-secondary-color);
+                    background-color: var(--app-primary-color, #0072CE);
+                    box-shadow: 0 3px 10px -3px rgba(0, 0, 0, .5);
+                    color: var(--app-secondary-color, #FFF);
                     display: flex;
-                    height: var(--app-top-bar-height);
+                    height: var(--app-top-bar-height, 56px);
                     left: 0;
                     position: fixed;
                     right: 0;
@@ -116,7 +145,7 @@ class CatalogueApp extends HTMLElement {
                 }
 
                 .app-layout .app-bar.top .title {
-                    line-height: var(--app-top-bar-height);
+                    line-height: var(--app-top-bar-height, 56px);
                 }
 
                 .app-layout .app-bar.top .icons.left {
@@ -137,11 +166,11 @@ class CatalogueApp extends HTMLElement {
 
                 @media (min-width: 560px) {
                     .app-layout .app-bar.top {
-                        left: var(--app-left-drawer-width);
+                        left: var(--app-left-drawer-width, 256px);
                     }
 
                     .app-layout #app-content {
-                        margin-left: var(--app-left-drawer-width);
+                        margin-left: var(--app-left-drawer-width, 256px);
 
                     }
 
@@ -166,9 +195,11 @@ class CatalogueApp extends HTMLElement {
                     <div class="bar top"><rhi-ui-logo></rhi-ui-logo></div>
                     <div class="content">
                         <div class="navigation">
-                            <div>&commat;rhi-ui/</div>
+                            <div class="section-name">&commat;rhi-ui/</div>
                             <div>
-                                <div>demo-snippet</div>
+                                <div>
+                                    <a class="nav-link" href="#rhi-ui-demo-snippet">demo-snippet</a>
+                                </div>
                                 <div>
                                     <a class="nav-link" href="#rhi-ui-logo">logo</a>
                                 </div>
@@ -192,6 +223,7 @@ class CatalogueApp extends HTMLElement {
 
         this.attachShadow({mode: 'open'});
 
+        this.componentMap = {};
         this.requestRender();
     }
 
@@ -237,22 +269,42 @@ class CatalogueApp extends HTMLElement {
 
     loadPage(page) {
         const componentName = page ? page : 'rhi-ui-logo';
+        console.log(componentName);
+        this.content.innerHTML = '<div>loading</div>';
 
         switch (componentName) {
+            case 'rhi-ui-demo-snippet':
+                this.loadModule(componentName,
+                    `${componentName}-demo`,
+                    `../node_modules/@rhi-ui/demo-snippet/${componentName}-demo.js`,
+                    `../node_modules/@rhi-ui/demo-snippet/README.md`);
+                break;
             case 'rhi-ui-logo':
-                import('../node_modules/@rhi-ui/logo/rhi-ui-logo-demo.js');
-                this.content.innerHTML = '<rhi-ui-logo-demo file-uri="../node_modules/@rhi-ui/logo/README.md"></rhi-ui-logo-demo>';
+                this.loadModule(componentName,
+                    `${componentName}-demo`,
+                    `../node_modules/@rhi-ui/logo/${componentName}-demo.js`,
+                    `../node_modules/@rhi-ui/logo/README.md`);
+                break;
+            case 'rhi-ui-markdown-viewer':    
+                this.loadModule(componentName,
+                    `${componentName}-demo`,
+                    `../node_modules/@rhi-ui/markdown-viewer/${componentName}-demo.js`,
+                    `../node_modules/@rhi-ui/markdown-viewer/README.md`);
                 break;
             case 'rhi-ui-selectable-grid':
-                import('../node_modules/@rhi-ui/selectable-grid/rhi-ui-selectable-grid-demo.js');
-                this.content.innerHTML = '<rhi-ui-selectable-grid-demo file-uri="../node_modules/@rhi-ui/selectable-grid/README.md"></rhi-ui-selectable-grid-demo>';
+                this.loadModule(componentName,
+                    `${componentName}-demo`,
+                    `../node_modules/@rhi-ui/selectable-grid/${componentName}-demo.js`,
+                    `../node_modules/@rhi-ui/selectable-grid/README.md`);
                 break;
             case 'rhi-isncsci-ui-mobile-totals':
-                import('./rhi-isncsci-ui-mobile-totals-demo-view.js');
+                this.loadModule(componentName,
+                    `${componentName}-demo`,
+                    `../node_modules/@rhi-isncsci-ui/mobile-totals/${componentName}-demo.js`,
+                    `../node_modules/@rhi-isncsci-ui/mobile-totals/README.md`);
                 break;
             default:
-                import('./catalogue-view404.js');
-                this.content.innerHTML = '<catalogue-view404></catalogue-view404>';
+                 this.content.innerHTML = '<catalogue-view404></catalogue-view404>';
                 break;
         }
 
@@ -262,6 +314,24 @@ class CatalogueApp extends HTMLElement {
     hideLeftDrawer() {
         this.leftDrawer.classList.remove('visible');
         this.dialogBackground.classList.remove('visible');
+    }
+
+    loadModule(moduleName, tagName, source, fileUri) {
+        if (!this.componentMap[moduleName]) {
+            // ToDo: The presence on code of the import method makes Edge throw an automatic exception 
+            //if (/Edge\/\d+/i.test(navigator.appVersion)) {
+                const script = document.createElement('script');
+                script.setAttribute('type', 'module');
+                script.setAttribute('src', source);
+                document.body.appendChild(script);
+            //} else {
+            //    import(source);
+            //}
+            
+            this.componentMap[moduleName] = true;
+        }
+
+        this.content.innerHTML = `<${tagName} file-uri="${fileUri}"></${tagName}>`;
     }
 
     hashChanged(e) {
