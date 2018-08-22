@@ -210,6 +210,12 @@ class CatalogueApp extends HTMLElement {
                                     <a class="nav-link" href="#rhi-ui-selectable-grid">selectable-grid</a>
                                 </div>
                             </div>
+                            <!--<div class="section-name">&commat;rhi-isncsci-ui/</div>
+                            <div>
+                                <div>
+                                    <a class="nav-link" href="#rhi-isncsci-ui-mobile-totals">mobile-totals</a>
+                                </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -276,32 +282,32 @@ class CatalogueApp extends HTMLElement {
             case 'rhi-ui-demo-snippet':
                 this.loadModule(componentName,
                     `${componentName}-demo`,
-                    `../node_modules/@rhi-ui/demo-snippet/${componentName}-demo.js`,
-                    `../node_modules/@rhi-ui/demo-snippet/README.md`);
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/demo-snippet/${componentName}-demo.js`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/demo-snippet/README.md`);
                 break;
             case 'rhi-ui-logo':
                 this.loadModule(componentName,
                     `${componentName}-demo`,
-                    `../node_modules/@rhi-ui/logo/${componentName}-demo.js`,
-                    `../node_modules/@rhi-ui/logo/README.md`);
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/logo/${componentName}-demo.js`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/logo/README.md`);
                 break;
             case 'rhi-ui-markdown-viewer':    
                 this.loadModule(componentName,
                     `${componentName}-demo`,
-                    `../node_modules/@rhi-ui/markdown-viewer/${componentName}-demo.js`,
-                    `../node_modules/@rhi-ui/markdown-viewer/README.md`);
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/markdown-viewer/${componentName}-demo.js`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/markdown-viewer/README.md`);
                 break;
             case 'rhi-ui-selectable-grid':
                 this.loadModule(componentName,
                     `${componentName}-demo`,
-                    `../node_modules/@rhi-ui/selectable-grid/${componentName}-demo.js`,
-                    `../node_modules/@rhi-ui/selectable-grid/README.md`);
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/selectable-grid/${componentName}-demo.js`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/selectable-grid/README.md`);
                 break;
             case 'rhi-isncsci-ui-mobile-totals':
                 this.loadModule(componentName,
                     `${componentName}-demo`,
-                    `../node_modules/@rhi-isncsci-ui/mobile-totals/${componentName}-demo.js`,
-                    `../node_modules/@rhi-isncsci-ui/mobile-totals/README.md`);
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-isncsci-ui/mobile-totals/${componentName}-demo.js`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-isncsci-ui/mobile-totals/README.md`);
                 break;
             default:
                  this.content.innerHTML = '<catalogue-view404></catalogue-view404>';
