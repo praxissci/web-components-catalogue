@@ -229,7 +229,8 @@ class CatalogueApp extends HTMLElement {
 
         this.attachShadow({mode: 'open'});
 
-        this.componentMap = {};
+        // When using a bundler, some custom elements may be included and do not need to be requested again.
+        this.componentMap = window.preloadedElements || {};
         this.requestRender();
     }
 
