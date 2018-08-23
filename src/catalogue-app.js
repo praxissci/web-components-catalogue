@@ -16,184 +16,335 @@
 */
 'use strict';
 
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
-import '@polymer/app-layout/app-drawer/app-drawer.js';
-import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
-import '@polymer/app-layout/app-header/app-header.js';
-import '@polymer/app-layout/app-header-layout/app-header-layout.js';
-import '@polymer/app-layout/app-scroll-effects/app-scroll-effects.js';
-import '@polymer/app-layout/app-toolbar/app-toolbar.js';
-import '@polymer/app-route/app-location.js';
-import '@polymer/app-route/app-route.js';
-import '@polymer/iron-pages/iron-pages.js';
-import '@polymer/iron-selector/iron-selector.js';
-import '@polymer/paper-icon-button/paper-icon-button.js';
-import '@polymer/iron-demo-helpers/demo-snippet.js';
-import '@polymer/marked-element/marked-element.js'
-import '@rhi-ui/logo/rhi-ui-logo.js';
+import '../node_modules/@rhi-ui/logo/rhi-ui-logo.js';
 import './catalogue-icons.js';
+import './catalogue-view404.js';
+import { html } from './html.js';
 
-// Gesture events like tap and track generated from touch will not be
-// preventable, allowing for better scrolling performance.
-setPassiveTouchGestures(true);
+class CatalogueApp extends HTMLElement {
+    static get is() { return 'catalogue-app'; }
 
-// Set Polymer's root path to the same value we passed to our service worker
-// in `index.html`.
-setRootPath(CatalogueAppGlobals.rootPath);
-
-class CatalogueApp extends PolymerElement {
-    static get template() {
+    static getTemplate(props) {
         return html`
-      <style>
-        :host {
-          --app-primary-color: #4285f4;
-          --app-secondary-color: black;
+            <style>
+                :host {
+                    --app-primary-color: #0072CE;
+                    --app-secondary-color: #FFF;
+                    --app-left-drawer-width: 256px;
+                    --app-left-drawer-translate: -256px;
+                    --app-top-bar-height: 56px;
+                    --app-content-top: 72px;
 
-          display: block;
-        }
+                    display: block;
+                }
 
-        app-drawer-layout:not([narrow]) [drawer-toggle] {
-          display: none;
-        }
+                #dialog-background {
+                    background-color: rgba(0, 0, 0, .3);
+                    display: none;
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    z-index: 11;
+                }
 
-        app-header {
-          color: #fff;
-          background-color: var(--app-primary-color);
-        }
+                #dialog-background.visible {
+                    display: block;
+                }
 
-        app-header paper-icon-button {
-          --paper-icon-button-ink-color: white;
-        }
+                .app-layout .drawer {
+                    background-color: #FFF;
+                    bottom: 0;
+                    left: 0;
+                    position: fixed;
+                    top: 0;
+                    width: var(--app-left-drawer-width, 256px);
+                    z-index: 15;
+                }
 
-        .drawer-list {
-          margin: 0 20px;
-        }
+                .app-layout .drawer .bar.top {
+                    background-color: #FFF;
+                    height: var(--app-top-bar-height, 56px);
+                    left: 0;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }
 
-        .drawer-list a {
-          display: block;
-          padding: 0 16px;
-          text-decoration: none;
-          color: var(--app-secondary-color);
-          line-height: 40px;
-        }
+                .app-layout .drawer .bar.top rhi-ui-logo {
+                    /*0 0 573 168*/
+                    display: inline-block;
+                    height: 56px;
+                    margin-left: 24px;
+                    width: 191px;
+                }
 
-        .drawer-list a.iron-selected {
-          color: black;
-          font-weight: bold;
-        }
+                .app-layout .drawer .content {
+                    margin-top: var(--app-top-bar-height, 56px);
+                    height:100%;
+                    overflow-y: auto;
+                    position: static;
+                }
 
-        app-toolbar .identity {
-            padding-top: 4px;
-            text-align: center;
-            width: 100%;
-        }
+                .app-layout .drawer.left {
+                    transform: translate(var(--app-left-drawer-translate, -256px));
+                    transition: transform 400ms;
+                }
 
-        app-toolbar .identity rhi-ui-logo {
-            height: 42px;
-            width: 192px;
-        }
-      </style>
+                .app-layout .drawer.left.visible {
+                    transform: translate(0);
+                }
+                
+                .app-layout .drawer .navigation {
+                    font-size: 14px;
+                }
+                
+                .app-layout .drawer .navigation .section-name,
+                .app-layout .drawer .navigation a {
+                    line-height: 48px;
+                    padding: 0 16px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
 
-      <app-location route="{{route}}" url-space-regex="^[[rootPath]]">
-      </app-location>
+                .app-layout .drawer .navigation a {
+                    color: #666;
+                    display: block;
+                    transition: background-color 500ms;
+                }
 
-      <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}">
-      </app-route>
+                .app-layout .drawer .navigation a:hover {
+                    background-color: #EEE;
+                }
 
-      <app-drawer-layout fullbleed="" narrow="{{narrow}}">
-        <!-- Drawer content -->
-        <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
-          <app-toolbar>
-                <div class="identity">
-                    <rhi-ui-logo></rhi-ui-logo>
+                .app-layout .drawer .navigation a.current {
+                    background-color: #EEE;
+                    color: #333;
+                }
+                
+                .app-layout #app-content {
+                    padding: var(--app-content-top, 72px) 16px 16px 16px;
+                    position: relative;
+                }
+
+                .app-layout #app-content {
+                    position: relative;
+                }
+
+                .app-layout .app-bar.top {
+                    background-color: var(--app-primary-color, #0072CE);
+                    box-shadow: 0 3px 10px -3px rgba(0, 0, 0, .5);
+                    color: var(--app-secondary-color, #FFF);
+                    display: flex;
+                    height: var(--app-top-bar-height, 56px);
+                    left: 0;
+                    position: fixed;
+                    right: 0;
+                    z-index: 10;
+                }
+
+                .app-layout .app-bar.top .title {
+                    line-height: var(--app-top-bar-height, 56px);
+                }
+
+                .app-layout .app-bar.top .icons.left {
+                    min-height: 24px;
+                    width: 72px;
+                }
+
+                .app-layout .app-bar.top .icons.left #menu-button {
+                    display: inline-block;
+                    fill: #FFF;
+                    margin: 4px 0 0 1px;
+                    padding: 11px 12px 7px 12px;
+                }
+
+                .app-layout .app-bar.top .icons.left #menu-button svg {
+                    width: 24px;
+                }
+
+                @media (min-width: 560px) {
+                    .app-layout .app-bar.top {
+                        left: var(--app-left-drawer-width, 256px);
+                    }
+
+                    .app-layout #app-content {
+                        margin-left: var(--app-left-drawer-width, 256px);
+
+                    }
+
+                    .app-layout .app-bar.top .icons.left #menu-button {
+                        display: none;
+                    }
+
+                    .app-layout .drawer.left {
+                        transform: translate(0);
+                    }
+                }
+            </style>
+            <div id="dialog-background"></div>
+            <div class="app-layout left-drawer">
+                <div class="app-bar top">
+                    <div class="icons left">
+                        <div id="menu-button"></div>
+                    </div>
+                    <div class="title">Custom Elements Catalogue</div>
                 </div>
-          </app-toolbar>
-          <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-            <a name="rhiUiLogo" href="[[rootPath]]rhiUiLogo">rhi-ui-ogo</a>
-            <a name="rhiUiSelectableGrid" href="[[rootPath]]rhiUiSelectableGrid">rhi-ui-selectable-grid</a>
-            <a name="rhiIsncsciUiMobileTotals" href="[[rootPath]]rhiIsncsciUiMobileTotals">rhi-isncsci-ui-mobile-totals</a>
-          </iron-selector>
-        </app-drawer>
+                <div id="left-drawer" class="drawer left">
+                    <div class="bar top"><rhi-ui-logo></rhi-ui-logo></div>
+                    <div class="content">
+                        <div class="navigation">
+                            <div class="section-name">&commat;rhi-ui/</div>
+                            <div>
+                                <div>
+                                    <a class="nav-link" href="#rhi-ui-demo-snippet">demo-snippet</a>
+                                </div>
+                                <div>
+                                    <a class="nav-link" href="#rhi-ui-logo">logo</a>
+                                </div>
+                                <div>
+                                    <a class="nav-link" href="#rhi-ui-markdown-viewer">markdown-viewer</a>
+                                </div>
+                                <div>
+                                    <a class="nav-link" href="#rhi-ui-selectable-grid">selectable-grid</a>
+                                </div>
+                            </div>
+                            <!--<div class="section-name">&commat;rhi-isncsci-ui/</div>
+                            <div>
+                                <div>
+                                    <a class="nav-link" href="#rhi-isncsci-ui-mobile-totals">mobile-totals</a>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div id="app-content"></div>
+            </div>
+        `;
+    }
+    
+    constructor() {
+        super();
 
-        <!-- Main content -->
-        <app-header-layout has-scrolling-region="">
+        this.attachShadow({mode: 'open'});
 
-          <app-header slot="header" condenses="" reveals="" effects="waterfall">
-            <app-toolbar>
-              <paper-icon-button icon="catalogue-icons:menu" drawer-toggle=""></paper-icon-button>
-              <div main-title="">RHI Web Components Catalogue</div>
-            </app-toolbar>
-          </app-header>
-
-          <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
-            <rhi-ui-logo-demo-view name="rhiUiLogo"></rhi-ui-logo-demo-view>
-            <rhi-ui-selectable-grid-demo-view name="rhiUiSelectableGrid"></rhi-ui-selectable-grid-demo-view>
-            <rhi-isncsci-ui-mobile-totals-demo-view name="rhiIsncsciUiMobileTotals"></rhi-isncsci-ui-mobile-totals-demo-view>
-            <catalogue-view404 name="view404"></catalogue-view404>
-          </iron-pages>
-        </app-header-layout>
-      </app-drawer-layout>
-    `;
+        // When using a bundler, some custom elements may be included and do not need to be requested again.
+        this.componentMap = window.preloadedElements || {};
+        this.requestRender();
     }
 
-    static get properties() {
-        return {
-            page: {
-                type: String,
-                reflectToAttribute: true,
-                observer: '_pageChanged'
-            },
-            routeData: Object,
-            subroute: Object
-        };
+    connectedCallback() {
+        this.leftDrawer = this.shadowRoot.getElementById('left-drawer');
+        
+        this.dialogBackground = this.shadowRoot.getElementById('dialog-background');
+        this.dialogBackground.addEventListener('click', e => this.hideLeftDrawer());
+
+        const menuButton = this.shadowRoot.getElementById('menu-button');
+        menuButton.innerHTML = `<svg viewBox="0 0 24 24">${this.getIcon('menu').innerHTML}</svg>`;
+        menuButton.addEventListener('click', e => { this.leftDrawer.classList.add('visible'); this.dialogBackground.classList.add('visible'); });
+
+        this.content = this.shadowRoot.getElementById('app-content');
+
+        window.addEventListener('hashchange', e => this.hashChanged(e));
+        this.loadPage(window.location.hash.replace('#', ''));
     }
 
-    static get observers() {
-        return [
-            '_routePageChanged(routeData.page)'
-        ];
+    // initializeNavigation() {
+    //     const navLinks = this.shadowRoot.querySelectorAll('.nav-link');
+
+    //     for (let i=0; i<navLinks.length; i++) {
+    //         navLinks[i].addEventListener('click', e => this.navLinkClicked(e));
+    //     }
+    // }
+
+    getIcon(id) {
+        const icons = document.head.getElementsByTagName('iconset-svg')[0].getElementsByTagName('g');
+
+        for (let i=0; i<icons.length; i++) {
+            if (icons[i].getAttribute('id') === id) {
+                return icons[i];
+            }
+        }
     }
 
-    _routePageChanged(page) {
-        // Show the corresponding page according to the route.
-        //
-        // If no page was found in the route data, page will be an empty string.
-        // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
-        if (!page) {
-            this.page = 'rhiUiLogo';
-        } else if (['rhiUiLogo', 'rhiUiSelectableGrid', 'rhiIsncsciUiMobileTotals'].indexOf(page) !== -1) {
-            this.page = page;
-        } else {
-            this.page = 'view404';
+    requestRender() {
+        const template = document.createElement('template');
+        template.innerHTML = CatalogueApp.getTemplate({});
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
+    }
+
+    loadPage(page) {
+        const componentName = page ? page : 'rhi-ui-logo';
+        console.log(componentName);
+        this.content.innerHTML = '<div>loading</div>';
+
+        switch (componentName) {
+            case 'rhi-ui-demo-snippet':
+                this.loadModule(componentName,
+                    `${componentName}-demo`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/demo-snippet/${componentName}-demo.js`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/demo-snippet/README.md`);
+                break;
+            case 'rhi-ui-logo':
+                this.loadModule(componentName,
+                    `${componentName}-demo`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/logo/${componentName}-demo.js`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/logo/README.md`);
+                break;
+            case 'rhi-ui-markdown-viewer':    
+                this.loadModule(componentName,
+                    `${componentName}-demo`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/markdown-viewer/${componentName}-demo.js`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/markdown-viewer/README.md`);
+                break;
+            case 'rhi-ui-selectable-grid':
+                this.loadModule(componentName,
+                    `${componentName}-demo`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/selectable-grid/${componentName}-demo.js`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-ui/selectable-grid/README.md`);
+                break;
+            case 'rhi-isncsci-ui-mobile-totals':
+                this.loadModule(componentName,
+                    `${componentName}-demo`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-isncsci-ui/mobile-totals/${componentName}-demo.js`,
+                    `${window.CatalogueAppGlobals.rootPath}node_modules/@rhi-isncsci-ui/mobile-totals/README.md`);
+                break;
+            default:
+                 this.content.innerHTML = '<catalogue-view404></catalogue-view404>';
+                break;
         }
 
-        // Close a non-persistent drawer when the page & route are changed.
-        if (!this.$.drawer.persistent) {
-            this.$.drawer.close();
-        }
+        window.scrollTo(0, 0);
     }
 
-    _pageChanged(page) {
-        // Import the page component on demand.
-        //
-        // Note: `polymer build` doesn't like string concatenation in the import
-        // statement, so break it up.
-        switch (page) {
-            case 'rhiUiLogo':
-                import('./rhi-ui-logo-demo-view.js');
-                break;
-            case 'rhiUiSelectableGrid':
-                import('./rhi-ui-selectable-grid-demo-view.js');
-                break;
-            case 'rhiIsncsciUiMobileTotals':
-                import('./rhi-isncsci-ui-mobile-totals-demo-view.js');
-                break;
-            case 'view404':
-                import('./catalogue-view404.js');
-                break;
+    hideLeftDrawer() {
+        this.leftDrawer.classList.remove('visible');
+        this.dialogBackground.classList.remove('visible');
+    }
+
+    loadModule(moduleName, tagName, source, fileUri) {
+        if (!this.componentMap[moduleName]) {
+            // ToDo: The presence on code of the import method makes Edge throw an automatic exception 
+            //if (/Edge\/\d+/i.test(navigator.appVersion)) {
+                const script = document.createElement('script');
+                script.setAttribute('type', 'module');
+                script.setAttribute('src', source);
+                document.body.appendChild(script);
+            //} else {
+            //    import(source);
+            //}
+            
+            this.componentMap[moduleName] = true;
         }
+
+        this.content.innerHTML = `<${tagName} file-uri="${fileUri}"></${tagName}>`;
+    }
+
+    hashChanged(e) {
+        this.hideLeftDrawer();
+        this.loadPage(window.location.hash.replace('#', ''));
     }
 }
 
-window.customElements.define('catalogue-app', CatalogueApp);
+window.customElements.define(CatalogueApp.is, CatalogueApp);

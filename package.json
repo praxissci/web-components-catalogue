@@ -1,43 +1,35 @@
 {
-  "name": "rhi-web-components-catalogue",
-  "version": "4.0.0",
   "description": "Catalogue to showcase RHI's web components",
   "author": "RHI Tech",
+  "dependencies": {
+    "@rhi-isncsci-ui/mobile-totals": "^1.0.4",
+    "@rhi-ui/demo-snippet": "^1.0.4",
+    "@rhi-ui/logo": "^1.0.7",
+    "@rhi-ui/markdown-viewer": "^1.0.3",
+    "@rhi-ui/selectable-grid": "^1.0.5",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "express": "^4.16.3",
+    "highlight.js": "^9.12.0",
+    "markdown-it": "^8.4.2"
+  },
+  "devDependencies": {
+    "wct-browser-legacy": "^1.0.0",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=8.0"
+  },
   "license": "Apache-2.0",
+  "name": "rhi-web-components-catalogue",
+  "private": true,
   "repository": "https://github.com/rick-hansen-institute/web-components-catalogue.git",
   "scripts": {
-    "start": "polymer serve",
-    "build": "polymer build",
+    "start": "node server.js",
+    "build": "webpack",
     "lint": "polymer lint",
     "test": "polymer test",
     "test:integration": "polymer build # test that psk builds without error with the CLI"
   },
-  "dependencies": {
-    "@polymer/app-layout": "^3.0.0-pre.15",
-    "@polymer/app-route": "^3.0.0-pre.15",
-    "@polymer/iron-demo-helpers": "^3.0.0-pre.21",
-    "@polymer/iron-flex-layout": "^3.0.0-pre.15",
-    "@polymer/iron-iconset-svg": "^3.0.0-pre.15",
-    "@polymer/iron-media-query": "^3.0.0-pre.15",
-    "@polymer/iron-pages": "^3.0.0-pre.15",
-    "@polymer/iron-selector": "^3.0.0-pre.15",
-    "@polymer/lit-element": "^0.5.2",
-    "@polymer/marked-element": "^3.0.0-pre.21",
-    "@polymer/paper-icon-button": "^3.0.0-pre.15",
-    "@polymer/polymer": "^3.0.0",
-    "@rhi-isncsci-ui/mobile-totals": "^1.0.4",
-    "@rhi-ui/demo-snippet": "^1.0.3",
-    "@rhi-ui/logo": "^1.0.6",
-    "@rhi-ui/markdown-viewer": "^1.0.2",
-    "@rhi-ui/selectable-grid": "^1.0.4",
-    "@webcomponents/webcomponentsjs": "^2.0.0",
-    "markdown-it": "^8.4.2"
-  },
-  "devDependencies": {
-    "polymer-cli": "^1.7.1",
-    "wct-browser-legacy": "^1.0.0"
-  },
-  "engines": {
-    "node": ">=8.0"
-  }
+  "version": "4.0.0"
 }
