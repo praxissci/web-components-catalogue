@@ -16,7 +16,7 @@
 */
 'use strict';
 
-import { html } from './html.js';
+import { html } from '../node_modules/@rhi-ui/html/html.js';
 
 class CatalogueView404 extends HTMLElement {
     static get is() { return 'catalogue-view404'; }

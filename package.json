@@ -4,6 +4,7 @@
   "dependencies": {
     "@rhi-isncsci-ui/mobile-totals": "^1.0.4",
     "@rhi-ui/demo-snippet": "^1.0.4",
+    "@rhi-ui/html": "^1.0.0",
     "@rhi-ui/logo": "^1.0.7",
     "@rhi-ui/markdown-viewer": "^1.0.3",
     "@rhi-ui/selectable-grid": "^1.0.5",

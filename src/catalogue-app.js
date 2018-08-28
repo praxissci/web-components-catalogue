@@ -19,7 +19,7 @@
 import '../node_modules/@rhi-ui/logo/rhi-ui-logo.js';
 import './catalogue-icons.js';
 import './catalogue-view404.js';
-import { html } from './html.js';
+import { html } from '../node_modules/@rhi-ui/html/html.js';
 
 class CatalogueApp extends HTMLElement {
     static get is() { return 'catalogue-app'; }
