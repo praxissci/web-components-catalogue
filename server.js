@@ -19,11 +19,11 @@ app.use(express.static(__dirname + '/build/bundled'));
 //  res.sendFile(req.url, { root: __dirname + '/../' });
 //});
 
-app.get('*', function(req, res) {
-  res.sendFile(req.url, { root: __dirname });
+app.get('*', function (req, res) {
+    res.sendFile(req.url, { root: __dirname });
 });
 
 // Tell the app to listen for requests on port 3000
 app.listen(port, function () {
-  console.log('rhi-ui Web Components');
+    console.log('rhi-ui Web Components');
 });

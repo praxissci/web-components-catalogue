@@ -1,0 +1,28 @@
+{
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "compileOnSave": true,
+    "compilerOptions": {
+        "declaration": true,
+        "lib": [
+          "dom",
+          "es6",
+          "scripthost"
+        ],
+        "module": "es6",
+        "moduleResolution": "node",
+        "noEmitOnError": true,
+        "noImplicitAny": false,
+        "outDir": "./build",
+        "removeComments": false,
+        "sourceMap": false,
+        "target": "es6"
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "./node_modules",
+        "**/*.spec.ts"
+    ]
+}

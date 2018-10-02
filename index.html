@@ -48,7 +48,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="msapplication-tap-highlight" content="no">
 
     <script>
-        window.CatalogueAppGlobals = { rootPath: '/' };
+        window.CatalogueAppGlobals = { rootPath: 'dist/' };
 
         // Load and register pre-caching Service Worker
         if ('serviceWorker' in navigator) {
@@ -60,12 +60,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
     </script>
 
-    <script src="node_modules/markdown-it/dist/markdown-it.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.4.2/markdown-it.min.js"></script>
     <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
     <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
     <!-- Load your application shell -->
-    <script type="module" src="src/catalogue-app.js"></script>
+    <script type="module" src="bundle.js"></script>
 
     <!-- Add any global styles for body, document, etc. -->
     <style>

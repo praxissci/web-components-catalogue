@@ -3,20 +3,21 @@
   "author": "RHI Tech",
   "dependencies": {
     "@rhi-isncsci-ui/mobile-totals": "^1.0.4",
-    "@rhi-ui/demo-snippet": "^1.0.4",
-    "@rhi-ui/html": "^1.0.0",
-    "@rhi-ui/logo": "^1.0.7",
-    "@rhi-ui/markdown-viewer": "^1.0.3",
-    "@rhi-ui/selectable-grid": "^1.0.5",
+    "@rhi-ui/demo-snippet": "^1.1.0",
+    "@rhi-ui/html": "^1.0.6",
+    "@rhi-ui/logo": "^1.1.2",
+    "@rhi-ui/markdown-viewer": "^1.1.0",
+    "@rhi-ui/selectable-grid": "^1.1.1",
     "@webcomponents/webcomponentsjs": "^2.0.0",
-    "express": "^4.16.3",
     "highlight.js": "^9.12.0",
     "markdown-it": "^8.4.2"
   },
   "devDependencies": {
-    "wct-browser-legacy": "^1.0.0",
-    "webpack": "^4.17.1",
-    "webpack-cli": "^3.1.0"
+    "cpx": "^1.5.0",
+    "express": "^4.16.3",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-typescript2": "^0.17.0",
+    "typescript": "^3.1.1"
   },
   "engines": {
     "node": ">=8.0"
@@ -26,11 +27,15 @@
   "private": true,
   "repository": "https://github.com/rick-hansen-institute/web-components-catalogue.git",
   "scripts": {
-    "start": "node server.js",
-    "build": "webpack",
-    "lint": "polymer lint",
-    "test": "polymer test",
-    "test:integration": "polymer build # test that psk builds without error with the CLI"
+    "build": "rollup -c ./rollup.config.js",
+    "postbuild": "npm run postbuild:rhi-ui",
+    "postbuild:rhi-ui": "npm run postbuild:resources && npm run postbuild:rhi-ui-ds && npm run postbuild:rhi-ui-logo && npm run postbuild:rhi-ui-mdv && npm run postbuild:rhi-ui-sg",
+    "postbuild:resources": "cpx ./index.html dist && cpx ./src/resources/**/* dist && cpx ./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js ./dist/node_modules/@webcomponents/webcomponentsjs",
+    "postbuild:rhi-ui-ds": "cpx ./node_modules/@rhi-ui/demo-snippet/README.md dist/node_modules/@rhi-ui/demo-snippet/",
+    "postbuild:rhi-ui-logo": "cpx ./node_modules/@rhi-ui/logo/README.md dist/node_modules/@rhi-ui/logo/",
+    "postbuild:rhi-ui-mdv": "cpx ./node_modules/@rhi-ui/markdown-viewer/README.md dist/node_modules/@rhi-ui/markdown-viewer/",
+    "postbuild:rhi-ui-sg": "cpx ./node_modules/@rhi-ui/selectable-grid/README.md dist/node_modules/@rhi-ui/selectable-grid/",
+    "start": "node server.js"
   },
   "version": "4.0.0"
 }
