@@ -16,12 +16,14 @@
 */
 'use strict';
 
+import '@rhi-isncsci-ui/mobile-sensory';
 import '@rhi-ui/demo-snippet';
 import '@rhi-ui/logo';
 import '@rhi-ui/markdown-viewer';
 import '@rhi-ui/selectable-grid';
 import './catalogue-icons';
 import './catalogue-view404';
+import './@rhi-isncsci-ui/mobile-sensory/rhi-isncsci-ui-mobile-sensory-demo';
 import './@rhi-ui/demo-snippet/rhi-ui-demo-snippet-demo';
 import './@rhi-ui/logo/rhi-ui-logo-demo';
 import './@rhi-ui/markdown-viewer/rhi-ui-markdown-viewer-demo';
@@ -92,10 +94,7 @@ class CatalogueApp extends HTMLElement {
 
     private loadPage(page): void {
         const componentName = page ? page : 'rhi-ui-logo';
-        console.log(componentName);
         this.content.innerHTML = '<div>loading</div>';
-
-        console.log(window['CatalogueAppGlobals'].rootPath);
 
         switch (componentName) {
             case 'rhi-ui-demo-snippet':
@@ -113,6 +112,10 @@ class CatalogueApp extends HTMLElement {
             case 'rhi-ui-selectable-grid':
                 this.content.innerHTML =
                     `<${componentName}-demo file-uri="node_modules/@rhi-ui/selectable-grid/README.md"></${componentName}-demo>`;
+                break;
+            case 'rhi-isncsci-ui-mobile-sensory':
+                this.content.innerHTML =
+                    `<${componentName}-demo file-uri="node_modules/@rhi-isncsci-ui/mobile-sensory/README.md"></${componentName}-demo>`;
                 break;
             case 'rhi-isncsci-ui-mobile-totals':
                 this.loadModule(componentName,

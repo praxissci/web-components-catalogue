@@ -204,12 +204,12 @@ export const template: string =
                                 <a class="nav-link" href="#rhi-ui-selectable-grid">selectable-grid</a>
                             </div>
                         </div>
-                        <!--<div class="section-name">&commat;rhi-isncsci-ui/</div>
+                        <div class="section-name">&commat;rhi-isncsci-ui/</div>
                         <div>
                             <div>
-                                <a class="nav-link" href="#rhi-isncsci-ui-mobile-totals">mobile-totals</a>
+                                <a class="nav-link" href="#rhi-isncsci-ui-mobile-sensory">mobile-sensory</a>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
             </div>

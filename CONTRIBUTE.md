@@ -5,3 +5,4 @@
 `npm link E:\rhi\ui\packages\@rhi-ui\logo`
 `npm link E:\rhi\ui\packages\@rhi-ui\markdown-viewer`
 `npm link E:\rhi\ui\packages\@rhi-ui\selectable-grid`
+`npm link E:\rhi-isncsci\ui\packages\@rhi-isncsci-ui\mobile-sensory`
