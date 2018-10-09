@@ -16,12 +16,12 @@
 */
 'use strict';
 
-import { html } from '../node_modules/@rhi-ui/html/html.js';
+import { html } from '@rhi-ui/html';
 
 class CatalogueView404 extends HTMLElement {
-    static get is() { return 'catalogue-view404'; }
+    public static get is(): string { return 'catalogue-view404'; }
 
-    static getTemplate() {
+    private static getTemplate(): string {
         return html`
             <style>
                 :host {
@@ -43,9 +43,9 @@ class CatalogueView404 extends HTMLElement {
         this.requestRender();
     }
 
-    requestRender() {
+    private requestRender(): void {
         const template = document.createElement('template');
-        template.innerHTML = CatalogueView404.getTemplate({});
+        template.innerHTML = CatalogueView404.getTemplate();
         this.shadowRoot.appendChild(template.content.cloneNode(true));
     }
 }
