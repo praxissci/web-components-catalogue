@@ -134,6 +134,9 @@ export class RhiIsncsciUiMobileSensoryDemo extends HTMLElement {
         this.uiBindings.motor
         .addEventListener('non-sci-impairment-comments-changed', (e: CustomEvent) => this.nonSciImpairmentCommentsChanged(e, this.uiBindings.motor));
         
+        this.uiBindings.motor
+        .addEventListener('propagate-value-changed', (e: CustomEvent) => alert(`Propagate value: ${e.detail.propagateValue}`));
+        
 
         // SENSORY
         this.uiBindings.sensory
@@ -147,6 +150,9 @@ export class RhiIsncsciUiMobileSensoryDemo extends HTMLElement {
         
         this.uiBindings.sensory
         .addEventListener('non-sci-impairment-comments-changed', (e: CustomEvent) => this.nonSciImpairmentCommentsChanged(e, this.uiBindings.sensory));
+        
+        this.uiBindings.sensory
+        .addEventListener('propagate-value-changed', (e: CustomEvent) => alert(`Propagate value: ${e.detail.propagateValue}`));
     }
 
     public attributeChangedCallback(name: string, oldValue: string, newValue: string, namespace: string): void {
