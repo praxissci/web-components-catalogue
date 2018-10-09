@@ -209,6 +209,7 @@ export class RhiIsncsciUiMobileSensoryDemo extends HTMLElement {
         const dermatome = this.getDermatome(e.detail.dermatome, target.getAttribute('input-type'));
         dermatome.score = e.detail.score;
         target.setAttribute('dermatome-score', e.detail.score);
+        target.setAttribute(e.detail.dermatome, e.detail.score);
         
         return true;
     }
