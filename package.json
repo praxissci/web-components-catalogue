@@ -2,7 +2,7 @@
   "description": "Catalogue to showcase RHI's web components",
   "author": "RHI Tech",
   "dependencies": {
-    "@rhi-isncsci-ui/logo": "^1.0.0",
+    "@rhi-isncsci-ui/logo": "^1.0.1",
     "@rhi-isncsci-ui/mobile-sensory": "^0.1.0",
     "@rhi-isncsci-ui/mobile-totals": "^1.0.6",
     "@rhi-ui/demo-snippet": "^1.1.0",
