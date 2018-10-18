@@ -16,6 +16,9 @@
 */
 'use strict';
 
+import '@rhi-isncsci-ui/mobile-sensory';
+import '@rhi-ui/demo-snippet';
+import '@rhi-ui/markdown-viewer';
 import { html } from '@rhi-ui/html';
 
 export class RhiIsncsciUiMobileSensoryDemo extends HTMLElement {
@@ -94,7 +97,6 @@ export class RhiIsncsciUiMobileSensoryDemo extends HTMLElement {
         super();
 
         this.attachShadow({ mode: 'open' });
-
         this.requestRender();
     }
 

@@ -207,7 +207,17 @@ export const template: string =
                         <div class="section-name">&commat;rhi-isncsci-ui/</div>
                         <div>
                             <div>
+                                <a class="nav-link" href="#rhi-isncsci-ui-logo">logo</a>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
                                 <a class="nav-link" href="#rhi-isncsci-ui-mobile-sensory">mobile-sensory</a>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <a class="nav-link" href="#rhi-isncsci-ui-mobile-totals">mobile-totals</a>
                             </div>
                         </div>
                     </div>
