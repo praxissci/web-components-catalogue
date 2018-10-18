@@ -16,14 +16,13 @@
 */
 'use strict';
 
-import '@rhi-isncsci-ui/mobile-sensory';
-import '@rhi-ui/demo-snippet';
 import '@rhi-ui/logo';
-import '@rhi-ui/markdown-viewer';
 import '@rhi-ui/selectable-grid';
 import './catalogue-icons';
 import './catalogue-view404';
+import './@rhi-isncsci-ui/logo/rhi-isncsci-ui-logo-demo';
 import './@rhi-isncsci-ui/mobile-sensory/rhi-isncsci-ui-mobile-sensory-demo';
+import './@rhi-isncsci-ui/mobile-totals/rhi-isncsci-ui-mobile-totals-demo';
 import './@rhi-ui/demo-snippet/rhi-ui-demo-snippet-demo';
 import './@rhi-ui/logo/rhi-ui-logo-demo';
 import './@rhi-ui/markdown-viewer/rhi-ui-markdown-viewer-demo';
@@ -113,15 +112,17 @@ class CatalogueApp extends HTMLElement {
                 this.content.innerHTML =
                     `<${componentName}-demo file-uri="node_modules/@rhi-ui/selectable-grid/README.md"></${componentName}-demo>`;
                 break;
+            case 'rhi-isncsci-ui-logo':
+                this.content.innerHTML =
+                    `<${componentName}-demo file-uri="node_modules/@rhi-isncsci-ui/logo/README.md"></${componentName}-demo>`;
+                break;
             case 'rhi-isncsci-ui-mobile-sensory':
                 this.content.innerHTML =
                     `<${componentName}-demo file-uri="node_modules/@rhi-isncsci-ui/mobile-sensory/README.md"></${componentName}-demo>`;
                 break;
             case 'rhi-isncsci-ui-mobile-totals':
-                this.loadModule(componentName,
-                    `${componentName}-demo`,
-                    // `${window['CatalogueAppGlobals'].rootPath}node_modules/@rhi-isncsci-ui/mobile-totals/${componentName}-demo.js`,
-                    `${window['CatalogueAppGlobals'].rootPath}node_modules/@rhi-isncsci-ui/mobile-totals/README.md`);
+                this.content.innerHTML =
+                    `<${componentName}-demo file-uri="node_modules/@rhi-isncsci-ui/mobile-totals/README.md"></${componentName}-demo>`;
                 break;
             default:
                 this.content.innerHTML = '<catalogue-view404></catalogue-view404>';

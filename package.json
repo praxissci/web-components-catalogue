@@ -2,8 +2,9 @@
   "description": "Catalogue to showcase RHI's web components",
   "author": "RHI Tech",
   "dependencies": {
+    "@rhi-isncsci-ui/logo": "^1.0.0",
     "@rhi-isncsci-ui/mobile-sensory": "^0.1.0",
-    "@rhi-isncsci-ui/mobile-totals": "^1.0.4",
+    "@rhi-isncsci-ui/mobile-totals": "^1.0.6",
     "@rhi-ui/demo-snippet": "^1.1.0",
     "@rhi-ui/html": "^1.0.6",
     "@rhi-ui/logo": "^1.1.2",
@@ -29,7 +30,7 @@
   "repository": "https://github.com/rick-hansen-institute/web-components-catalogue.git",
   "scripts": {
     "build": "rollup -c ./rollup.config.js",
-    "build:current": "npm link E:\\rhi-isncsci\\ui\\packages\\@rhi-isncsci-ui\\mobile-sensory && rollup -c ./rollup.config.js && npm run postbuild:rhi-isncsci-ms",
+    "build:current": "npm link E:\\rhi-isncsci\\ui\\packages\\@rhi-isncsci-ui\\logo && rollup -c ./rollup.config.js && npm run postbuild:rhi-isncsci-logo",
     "postbuild": "npm run postbuild:rhi-ui",
     "postbuild:rhi-ui": "npm run postbuild:resources && npm run postbuild:rhi-ui-ds && npm run postbuild:rhi-ui-logo && npm run postbuild:rhi-ui-mdv && npm run postbuild:rhi-ui-sg",
     "postbuild:resources": "cpx ./index.html dist && cpx ./src/resources/**/* dist && cpx ./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js ./dist/node_modules/@webcomponents/webcomponentsjs",
@@ -37,7 +38,9 @@
     "postbuild:rhi-ui-logo": "cpx ./node_modules/@rhi-ui/logo/README.md dist/node_modules/@rhi-ui/logo/",
     "postbuild:rhi-ui-mdv": "cpx ./node_modules/@rhi-ui/markdown-viewer/README.md dist/node_modules/@rhi-ui/markdown-viewer/",
     "postbuild:rhi-ui-sg": "cpx ./node_modules/@rhi-ui/selectable-grid/README.md dist/node_modules/@rhi-ui/selectable-grid/",
+    "postbuild:rhi-isncsci-logo": "cpx ./node_modules/@rhi-isncsci-ui/logo/README.md dist/node_modules/@rhi-isncsci-ui/logo/",
     "postbuild:rhi-isncsci-ms": "cpx ./node_modules/@rhi-isncsci-ui/mobile-sensory/README.md dist/node_modules/@rhi-isncsci-ui/mobile-sensory/",
+    "postbuild:rhi-isncsci-mt": "cpx ./node_modules/@rhi-isncsci-ui/mobile-totals/README.md dist/node_modules/@rhi-isncsci-ui/mobile-totals/",
     "start": "node server.js"
   },
   "version": "4.0.0"
