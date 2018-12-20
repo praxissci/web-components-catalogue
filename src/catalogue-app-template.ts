@@ -16,10 +16,8 @@
  */
 'use strict';
 
-import { html } from '@rhi-ui/html';
-
 export const template: string =
-    html`
+    `
         <style>
             :host {
                 --app-primary-color: #0072CE;
@@ -202,6 +200,9 @@ export const template: string =
                             </div>
                             <div>
                                 <a class="nav-link" href="#rhi-ui-selectable-grid">selectable-grid</a>
+                            </div>
+                            <div>
+                                <a class="nav-link" href="#rhi-ui-thermometer-eq5d">thermometer-eq5d</a>
                             </div>
                         </div>
                         <div class="section-name">&commat;rhi-isncsci-ui/</div>

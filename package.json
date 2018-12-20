@@ -6,19 +6,22 @@
     "@rhi-isncsci-ui/mobile-sensory": "^0.1.0",
     "@rhi-isncsci-ui/mobile-totals": "^1.0.6",
     "@rhi-ui/demo-snippet": "^1.1.0",
-    "@rhi-ui/html": "^1.0.6",
     "@rhi-ui/logo": "^1.1.2",
     "@rhi-ui/markdown-viewer": "^1.1.0",
     "@rhi-ui/selectable-grid": "^1.1.1",
+    "@rhi-ui/thermometer-eq5d": "0.0.1",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "highlight.js": "^9.12.0",
     "markdown-it": "^8.4.2"
   },
   "devDependencies": {
     "cpx": "^1.5.0",
-    "express": "^4.16.3",
+    "http-server": "^0.11.1",
+    "rimraf": "^2.6.2",
     "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-terser": "^3.0.0",
     "rollup-plugin-typescript2": "^0.17.0",
+    "tslint": "^5.12.0",
     "typescript": "^3.1.1"
   },
   "engines": {
@@ -29,19 +32,16 @@
   "private": true,
   "repository": "https://github.com/rick-hansen-institute/web-components-catalogue.git",
   "scripts": {
-    "build": "rollup -c ./rollup.config.js",
-    "build:current": "npm link E:\\rhi-isncsci\\ui\\packages\\@rhi-isncsci-ui\\logo && rollup -c ./rollup.config.js && npm run postbuild:rhi-isncsci-logo",
-    "postbuild": "npm run postbuild:rhi-ui",
-    "postbuild:rhi-ui": "npm run postbuild:resources && npm run postbuild:rhi-ui-ds && npm run postbuild:rhi-ui-logo && npm run postbuild:rhi-ui-mdv && npm run postbuild:rhi-ui-sg",
-    "postbuild:resources": "cpx ./index.html dist && cpx ./src/resources/**/* dist && cpx ./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js ./dist/node_modules/@webcomponents/webcomponentsjs",
-    "postbuild:rhi-ui-ds": "cpx ./node_modules/@rhi-ui/demo-snippet/README.md dist/node_modules/@rhi-ui/demo-snippet/",
-    "postbuild:rhi-ui-logo": "cpx ./node_modules/@rhi-ui/logo/README.md dist/node_modules/@rhi-ui/logo/",
-    "postbuild:rhi-ui-mdv": "cpx ./node_modules/@rhi-ui/markdown-viewer/README.md dist/node_modules/@rhi-ui/markdown-viewer/",
-    "postbuild:rhi-ui-sg": "cpx ./node_modules/@rhi-ui/selectable-grid/README.md dist/node_modules/@rhi-ui/selectable-grid/",
-    "postbuild:rhi-isncsci-logo": "cpx ./node_modules/@rhi-isncsci-ui/logo/README.md dist/node_modules/@rhi-isncsci-ui/logo/",
-    "postbuild:rhi-isncsci-ms": "cpx ./node_modules/@rhi-isncsci-ui/mobile-sensory/README.md dist/node_modules/@rhi-isncsci-ui/mobile-sensory/",
-    "postbuild:rhi-isncsci-mt": "cpx ./node_modules/@rhi-isncsci-ui/mobile-totals/README.md dist/node_modules/@rhi-isncsci-ui/mobile-totals/",
-    "start": "node server.js"
+    "build": "rollup -c",
+    "build:prod": "rollup -c --environment BUILD:production",
+    "postbuild": "node postbuild/index",
+    "postbuild:prod": "node -e \"process.env.BUILD='production'; require('./postbuild/index')\"",
+    "prebuild": "rimraf ./dist",
+    "prebuild:prod": "npm run tslint && npm test -- --single-run && rimraf ./dist",
+    "preserve": "npm run build",
+    "serve": "concurrently \"npm start\" \"rollup -c --watch\" \"npm run test\" --kill-others-on-fail",
+    "start": "http-server ./dist -o -c-1",
+    "tslint": "tslint -p ."
   },
   "version": "4.0.0"
 }

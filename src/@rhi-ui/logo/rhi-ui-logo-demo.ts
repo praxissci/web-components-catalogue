@@ -16,13 +16,11 @@
 */
 'use strict';
 
-import { html } from '@rhi-ui/html';
-
 export class RhiUiLogoDemo extends HTMLElement {
     public static get is(): string { return 'rhi-ui-logo-demo'; }
 
     public getTemplate(): string {
-        return html`
+        return `
             <style>
                 :host {
                     display: block;

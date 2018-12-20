@@ -16,13 +16,11 @@
 */
 'use strict';
 
-import { html } from '@rhi-ui/html';
-
 class CatalogueView404 extends HTMLElement {
     public static get is(): string { return 'catalogue-view404'; }
 
     private static getTemplate(): string {
-        return html`
+        return `
             <style>
                 :host {
                 display: block;

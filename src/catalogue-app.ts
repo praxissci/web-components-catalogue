@@ -27,6 +27,7 @@ import './@rhi-ui/demo-snippet/rhi-ui-demo-snippet-demo';
 import './@rhi-ui/logo/rhi-ui-logo-demo';
 import './@rhi-ui/markdown-viewer/rhi-ui-markdown-viewer-demo';
 import './@rhi-ui/selectable-grid/rhi-ui-selectable-grid-demo';
+import './@rhi-ui/thermometer-eq5d/rhi-ui-thermometer-eq5d-demo';
 import { template } from './catalogue-app-template';
 
 class CatalogueApp extends HTMLElement {
@@ -98,31 +99,35 @@ class CatalogueApp extends HTMLElement {
         switch (componentName) {
             case 'rhi-ui-demo-snippet':
                 this.content.innerHTML =
-                    `<${componentName}-demo file-uri="node_modules/@rhi-ui/demo-snippet/README.md"></${componentName}-demo>`;
+                    `<${componentName}-demo file-uri="@rhi-ui/demo-snippet/README.md"></${componentName}-demo>`;
                 break;
             case 'rhi-ui-logo':
                 this.content.innerHTML =
-                    `<${componentName}-demo file-uri="node_modules/@rhi-ui/logo/README.md"></${componentName}-demo>`;
+                    `<${componentName}-demo file-uri="@rhi-ui/logo/README.md"></${componentName}-demo>`;
                 break;
             case 'rhi-ui-markdown-viewer':
                 this.content.innerHTML =
-                    `<${componentName}-demo file-uri="node_modules/@rhi-ui/markdown-viewer/README.md"></${componentName}-demo>`;
+                    `<${componentName}-demo file-uri="@rhi-ui/markdown-viewer/README.md"></${componentName}-demo>`;
                 break;
             case 'rhi-ui-selectable-grid':
                 this.content.innerHTML =
-                    `<${componentName}-demo file-uri="node_modules/@rhi-ui/selectable-grid/README.md"></${componentName}-demo>`;
+                    `<${componentName}-demo file-uri="@rhi-ui/selectable-grid/README.md"></${componentName}-demo>`;
+                break;
+            case 'rhi-ui-thermometer-eq5d':
+                this.content.innerHTML =
+                    `<${componentName}-demo file-uri="@rhi-ui/thermometer-eq5d/README.md"></${componentName}-demo>`;
                 break;
             case 'rhi-isncsci-ui-logo':
                 this.content.innerHTML =
-                    `<${componentName}-demo file-uri="node_modules/@rhi-isncsci-ui/logo/README.md"></${componentName}-demo>`;
+                    `<${componentName}-demo file-uri="@rhi-isncsci-ui/logo/README.md"></${componentName}-demo>`;
                 break;
             case 'rhi-isncsci-ui-mobile-sensory':
                 this.content.innerHTML =
-                    `<${componentName}-demo file-uri="node_modules/@rhi-isncsci-ui/mobile-sensory/README.md"></${componentName}-demo>`;
+                    `<${componentName}-demo file-uri="@rhi-isncsci-ui/mobile-sensory/README.md"></${componentName}-demo>`;
                 break;
             case 'rhi-isncsci-ui-mobile-totals':
                 this.content.innerHTML =
-                    `<${componentName}-demo file-uri="node_modules/@rhi-isncsci-ui/mobile-totals/README.md"></${componentName}-demo>`;
+                    `<${componentName}-demo file-uri="@rhi-isncsci-ui/mobile-totals/README.md"></${componentName}-demo>`;
                 break;
             default:
                 this.content.innerHTML = '<catalogue-view404></catalogue-view404>';

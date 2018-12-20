@@ -19,11 +19,10 @@
 import '@rhi-isncsci-ui/mobile-sensory';
 import '@rhi-ui/demo-snippet';
 import '@rhi-ui/markdown-viewer';
-import { html } from '@rhi-ui/html';
 
 export class RhiIsncsciUiMobileSensoryDemo extends HTMLElement {
     public static getTemplate(props): string {
-        return html`
+        return `
             <!-- shadow DOM for your element -->
             <!-- RHI Blue: #007DC2 -->
             <style>
