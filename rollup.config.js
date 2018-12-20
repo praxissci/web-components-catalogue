@@ -7,47 +7,47 @@
  * You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+*/
 'use strict';
 
 import resolve from 'rollup-plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
+import { terser as minify } from "rollup-plugin-terser";
 
-const defaults = { compilerOptions: { declaration: true } };
-const override = { compilerOptions: { declaration: false } };
-
-function config({ context = undefined, output = {}, external = [] }) {
+function config({ output = {}, plugins = [] }) {
     return {
         input: 'src/index.ts',
-        context: context,
         output: {
+            file: 'dist/bundle.js',
+            format: 'esm',
             ...output,
         },
-        external: [
-            ...external,
-        ],
         plugins: [
             resolve(),
-            typescript({
-                tsconfigDefaults: defaults,
-                tsconfig: "tsconfig.json",
-                tsconfigOverride: override
-            })
+            typescript(),
+            ...plugins
         ]
     }
 }
 
-export default [
-    config({
-        output: {
-            file: 'dist/bundle.js',
-            format: 'esm'
-        }
-    })
-];
+const devBuild = {
+    output:{
+        sourcemap: true
+    }
+};
+
+const prodBuild = {
+    plugins:[
+        minify()
+    ]
+};
+
+const build = process.env.BUILD === 'production' ? prodBuild : devBuild;
+
+export default config(build)

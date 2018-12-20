@@ -16,13 +16,11 @@
 */
 'use strict';
 
-import { html } from '@rhi-ui/html';
-
 export class RhiUiSelectableGridDemo extends HTMLElement {
     public static get is(): string { return 'rhi-ui-selectable-grid-demo'; }
 
     public getTemplate(): string {
-        return html`
+        return `
             <style>
                 :host {
                     display: block;

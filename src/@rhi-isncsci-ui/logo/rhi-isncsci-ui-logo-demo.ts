@@ -19,13 +19,12 @@
 import '@rhi-isncsci-ui/logo';
 import '@rhi-ui/demo-snippet';
 import '@rhi-ui/markdown-viewer';
-import { html } from '@rhi-ui/html';
 
 export class RhiIsncsciUiLogoDemo extends HTMLElement {
     public static get is(): string { return 'rhi-isncsci-ui-logo-demo'; }
 
     public getTemplate(): string {
-        return html`
+        return `
             <style>
                 :host {
                     display: block;

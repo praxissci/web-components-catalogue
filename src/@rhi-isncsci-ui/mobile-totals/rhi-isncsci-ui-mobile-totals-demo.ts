@@ -19,13 +19,12 @@
 import '@rhi-isncsci-ui/mobile-totals';
 import '@rhi-ui/demo-snippet';
 import '@rhi-ui/markdown-viewer';
-import { html } from '@rhi-ui/html';
 
 export class RhiIsncsciUiMobileTotalsDemo extends HTMLElement {
     public static get is(): string { return 'rhi-isncsci-ui-mobile-totals-demo'; }
 
     public static getTemplate(props): string {
-        return html`
+        return `
             <!-- shadow DOM for your element -->
             <!-- RHI Blue: #007DC2 -->
             <style>

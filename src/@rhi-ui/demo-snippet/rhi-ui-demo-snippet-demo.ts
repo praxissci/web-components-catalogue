@@ -16,14 +16,12 @@
 */
 'use strict';
 
-import { html } from '@rhi-ui/html';
-
 export class RhiUiDemoSnippetDemo extends HTMLElement {
 
     public static get is(): string { return 'rhi-ui-demo-snippet-demo'; }
 
     private getTemplate(props): string {
-        return html`
+        return `
             <!-- shadow DOM for your element -->
             <!-- RHI Blue: #007DC2 -->
             <style>
